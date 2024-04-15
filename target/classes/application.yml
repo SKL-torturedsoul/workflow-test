@@ -1,7 +1,13 @@
 spring:
   application:
     name: automation
-    
+ 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info, metrics
+   
 camunda.bpm:
   admin-user:
     id: demo
