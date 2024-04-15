@@ -25,7 +25,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(ServiceA.class);
         System.out.println("Service Task Service A executed");
 
 
-        HttpResponse<String> response = get("http://monitoring-svc:8081/");
+        HttpResponse<String> response = get("http://monitoring-svc:/");
 
         }
 
