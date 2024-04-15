@@ -10,8 +10,7 @@
   </appender>
 
   <root level="info">
-    <appender-ref ref="STDOUT"/>
-    <appender-ref ref="OTEL" />
+      <appender-ref ref="OTEL" />
   </root>
  
 </configuration>
