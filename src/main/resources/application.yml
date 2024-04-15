@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: automation
+    
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+    firstName: Demo
+  filter:
+    create: All task
+ 
