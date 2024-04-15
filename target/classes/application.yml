@@ -6,7 +6,9 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info, metrics
+        include: health,info, metrics, prometheus
+    health:
+      show-details: always    
    
 camunda.bpm:
   admin-user:
