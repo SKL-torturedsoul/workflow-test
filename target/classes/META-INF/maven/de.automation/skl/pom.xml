@@ -31,6 +31,11 @@
             <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
             <version>${camunda.spring-boot.version}</version>
         </dependency>
+		<dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <version>${camunda.spring-boot.version}</version>
+        </dependency>
         <dependency>
            <groupId>com.h2database</groupId>
            <artifactId>h2</artifactId>
@@ -44,11 +49,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>de.skl</groupId>
-			<artifactId>monitoring</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -67,6 +67,16 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>workflow</finalName>
 	</build>
+	
+	<repositories>
+  		<repository>
+    		<id>camunda-bpm-nexus</id>
+    		<name>Camunda Platform Maven Repository</name>
+    		<url>https://artifacts.camunda.com/artifactory/public/</url>
+  		</repository>
+	</repositories>
+	
 
 </project>
