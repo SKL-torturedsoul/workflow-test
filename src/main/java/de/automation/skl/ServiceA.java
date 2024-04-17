@@ -9,11 +9,11 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import jakarta.inject.Named;
 
-@Component
+@Service
 @Named("serviceA")
 public class ServiceA implements JavaDelegate {
 
@@ -25,7 +25,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(ServiceA.class);
         System.out.println("Service Task Service A executed");
 
 
-        HttpResponse<String> response = get("http://monitoring-svc/");
+        HttpResponse<String> response = get("http://localhost:8081/");
 
         }
 

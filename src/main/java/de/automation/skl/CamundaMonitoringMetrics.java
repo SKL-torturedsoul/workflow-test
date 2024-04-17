@@ -3,6 +3,7 @@ package de.automation.skl;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import java.util.Objects;
+
 import org.camunda.bpm.engine.ManagementService;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.management.Metrics;
@@ -26,6 +27,7 @@ public class CamundaMonitoringMetrics {
     Objects.requireNonNull(engine);
     this.service = engine.getManagementService();
   }
+     
 
   @Bean
   public Gauge jobExecutionsSuccessful(MeterRegistry registry) {

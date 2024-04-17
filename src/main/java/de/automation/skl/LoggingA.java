@@ -2,13 +2,13 @@ package de.automation.skl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import jakarta.inject.Named;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-@Component
+@Service
 @Named("loggingA")
 public class LoggingA implements JavaDelegate {
     
