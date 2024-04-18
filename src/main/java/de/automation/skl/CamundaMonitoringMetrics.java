@@ -39,7 +39,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.executions.successful", query::sum)
         .description("Successful job executions")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
@@ -49,7 +49,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.executions.failed", query::sum)
         .description("Failed job executions")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
@@ -59,7 +59,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.executions.rejected", query::sum)
         .description("Rejected jobs due to saturated execution resources")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
@@ -79,7 +79,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.acquisitions.successful", query::sum)
         .description("Successful job acquisitions")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
@@ -89,7 +89,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.acquisitions.failed", query::sum)
         .description("Failed job acquisitions")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
@@ -99,7 +99,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.locks.exclusive", query::sum)
         .description("Exclusive jobs that are immediately locked and executed")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
