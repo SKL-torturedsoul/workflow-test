@@ -69,7 +69,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.acquisitions.attempted", query::sum)
         .description("Performed job acquisition cycles")
-        .baseUnit(NUMBER_OF_JOBS)
+        .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
 
