@@ -31,48 +31,48 @@ public class CamundaMonitoringMetrics {
     Objects.requireNonNull(engine);
     this.service = engine.getManagementService();
   }
-     
+
   @Bean
   public Gauge rootProcessInstanceStart(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.ROOT_PROCESS_INSTANCE_START);
 
-    return Gauge.builder("root.process.instance.start", query::sum)
-        .description("(PI)Number of executed Root Process Instance executions")
-        .tags("CamundaOOTB","TESTCustomMetric","PI-Licence-Metric")
+    return Gauge.builder("root.PI.start", query::sum)
+        .description("Number of executed Root Process Instance executions")
+        .tags("CamundaOOTB","MetricLicensePIMetric")
         .register(registry);
   }
-  
+
   @Bean
   public Gauge executedDecisionInstances(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.EXECUTED_DECISION_INSTANCES);
 
     return Gauge.builder("executed.decision.instances", query::sum)
-        .description("(DI)Number of executed decision instances in the DMN engine.")
-        .tags("CamundaOOTB","TESTCustomMetric","DI-Licence-Metric")
+        .description("Number of executed Decision Instance executions")
+        .tags("CamundaOOTB","MetricLicenseDIMetric")
         .register(registry);
   }
   
-  @Bean
-  public Gauge jobExecutionsSuccessful(MeterRegistry registry) {
-    MetricsQuery query = service.createMetricsQuery().name(Metrics.ROOT_PROCESS_INSTANCE_START);
-
-    return Gauge.builder("root.process.instance.start", query::sum)
-        .description("(PI)Number of executed Root Process Instance executions")
-        .tags("CamundaOOTB","TESTCustomMetric","PI-Licence-Metric")
-        .register(registry);
-  }
-  
-
   @Bean
   public Gauge uniqueTaskWorkers(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.UNIQUE_TASK_WORKERS);
 
     return Gauge.builder("unique.task.workers", query::sum)
-        .description("(UT)Number of unique task workers")
-        .tags("CamundaOOTB","TESTCustomMetric","UT-Licence-Metric")
+        .description("Number of executed Decision Instance executions")
+        .tags("CamundaOOTB","MetricLicenseUTMetric")
         .register(registry);
   }
+  
+  
+  @Bean
+  public Gauge jobExecutionsSuccessful(MeterRegistry registry) {
+    MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_SUCCESSFUL);
 
+    return Gauge.builder("job.successful", query::sum)
+        .description("Job successful")
+        .tags("CamundaOOTB","TESTCustomMetric")
+        .register(registry);
+  }
+  
   @Bean
   public Gauge jobExecutionsFailed(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_FAILED);
@@ -112,7 +112,7 @@ public class CamundaMonitoringMetrics {
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
   }
-
+  
   @Bean
   public Gauge jobAcquistionsFailed(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_ACQUIRED_FAILURE);
