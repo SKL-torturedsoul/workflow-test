@@ -31,7 +31,7 @@ public class CamundaMonitoringMetrics {
     Objects.requireNonNull(engine);
     this.service = engine.getManagementService();
   }
-
+// License Metrics
   @Bean
   public Gauge rootProcessInstanceStart(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.ROOT_PROCESS_INSTANCE_START);
@@ -61,6 +61,42 @@ public class CamundaMonitoringMetrics {
         .tags("CamundaOOTB","MetricLicenseUTMetric")
         .register(registry);
   }
+ 
+ // housekeeping metrics
+  
+
+@Bean
+public Gauge historyCleanupRemovedProcessInstances(MeterRegistry registry) {
+  MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_PROCESS_INSTANCES);
+
+  return Gauge.builder("cleanup.PI", query::sum)
+      .description("Number of cleaned Process Instances")
+      .tags("CamundaOOTB","MetricHousekeeping")
+      .register(registry);
+}
+
+@Bean
+public Gauge historyCleanupRemovedDecisionInstances(MeterRegistry registry) {
+  MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_DECISION_INSTANCES);
+
+  return Gauge.builder("cleanup.DI", query::sum)
+      .description("Number of cleanes Decision Instances")
+      .tags("CamundaOOTB","MetricHousekeeping")
+      .register(registry);
+}
+
+@Bean
+public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
+  MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_TASK_METRICS);
+
+  return Gauge.builder("cleanup.task", query::sum)
+      .description("Number of cleaned Tasks")
+      .tags("CamundaOOTB","MetricHousekeeping")
+      .register(registry);
+}
+  
+
+// General Metrics
   
   
   @Bean
