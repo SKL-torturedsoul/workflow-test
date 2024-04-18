@@ -2,6 +2,7 @@ package de.automation.skl;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
+
 import java.util.Objects;
 
 import org.camunda.bpm.engine.ManagementService;
@@ -15,12 +16,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CamundaMonitoringMetrics {
-
+  
+	
   private static final String NUMBER_OF_EXCLUSIVE_JOBS = "Number of exclusive jobs";
   private static final String NUMBER_OF_ACQUISITION_CYCLES = "Number of acquisition cycles";
   private static final String NUMBER_OF_JOBS = "Number of jobs";
 
   private final ManagementService service;
+  
+   
 
   public CamundaMonitoringMetrics(ProcessEngine engine) {
     super();
@@ -65,7 +69,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.acquisitions.attempted", query::sum)
         .description("Performed job acquisition cycles")
-        .baseUnit(NUMBER_OF_ACQUISITION_CYCLES)
+        .baseUnit(NUMBER_OF_JOBS)
         .register(registry);
   }
 
@@ -95,7 +99,7 @@ public class CamundaMonitoringMetrics {
 
     return Gauge.builder("job.locks.exclusive", query::sum)
         .description("Exclusive jobs that are immediately locked and executed")
-        .baseUnit(NUMBER_OF_EXCLUSIVE_JOBS)
+        .baseUnit(NUMBER_OF_JOBS)
         .register(registry);
   }
 
