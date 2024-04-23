@@ -17,26 +17,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CamundaMonitoringMetrics {
   
-	
-  private static final String NUMBER_OF_EXCLUSIVE_JOBS = "Number of exclusive jobs";
-  private static final String NUMBER_OF_ACQUISITION_CYCLES = "Number of acquisition cycles";
-  private static final String NUMBER_OF_JOBS = "Number of jobs";
-
   private final ManagementService service;
-  
-   
 
   public CamundaMonitoringMetrics(ProcessEngine engine) {
     super();
     Objects.requireNonNull(engine);
     this.service = engine.getManagementService();
   }
-// License Metrics
+
+  
+  
+  
+ // License Metrics
   @Bean
   public Gauge rootProcessInstanceStart(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.ROOT_PROCESS_INSTANCE_START);
 
-    return Gauge.builder("root.PI.start", query::sum)
+    return Gauge.builder("engine.root.PI.start", query::sum)
         .description("Number of executed Root Process Instance executions")
         .tags("CamundaOOTB","MetricLicensePIMetric")
         .register(registry);
@@ -46,7 +43,7 @@ public class CamundaMonitoringMetrics {
   public Gauge executedDecisionInstances(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.EXECUTED_DECISION_INSTANCES);
 
-    return Gauge.builder("executed.decision.instances", query::sum)
+    return Gauge.builder("engine.executed.decision.instances", query::sum)
         .description("Number of executed Decision Instance executions")
         .tags("CamundaOOTB","MetricLicenseDIMetric")
         .register(registry);
@@ -56,20 +53,19 @@ public class CamundaMonitoringMetrics {
   public Gauge uniqueTaskWorkers(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.UNIQUE_TASK_WORKERS);
 
-    return Gauge.builder("unique.task.workers", query::sum)
+    return Gauge.builder("engine.unique.task.workers", query::sum)
         .description("Number of executed Decision Instance executions")
         .tags("CamundaOOTB","MetricLicenseUTMetric")
         .register(registry);
   }
  
  // housekeeping metrics
-  
 
 @Bean
 public Gauge historyCleanupRemovedProcessInstances(MeterRegistry registry) {
   MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_PROCESS_INSTANCES);
 
-  return Gauge.builder("cleanup.PI", query::sum)
+  return Gauge.builder("engine.cleanup.PI", query::sum)
       .description("Number of cleaned Process Instances")
       .tags("CamundaOOTB","MetricHousekeeping")
       .register(registry);
@@ -79,7 +75,7 @@ public Gauge historyCleanupRemovedProcessInstances(MeterRegistry registry) {
 public Gauge historyCleanupRemovedDecisionInstances(MeterRegistry registry) {
   MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_DECISION_INSTANCES);
 
-  return Gauge.builder("cleanup.DI", query::sum)
+  return Gauge.builder("engine.cleanup.DI", query::sum)
       .description("Number of cleanes Decision Instances")
       .tags("CamundaOOTB","MetricHousekeeping")
       .register(registry);
@@ -89,21 +85,48 @@ public Gauge historyCleanupRemovedDecisionInstances(MeterRegistry registry) {
 public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   MetricsQuery query = service.createMetricsQuery().name(Metrics.HISTORY_CLEANUP_REMOVED_TASK_METRICS);
 
-  return Gauge.builder("cleanup.task", query::sum)
+  return Gauge.builder("engine.cleanup.task", query::sum)
       .description("Number of cleaned Tasks")
       .tags("CamundaOOTB","MetricHousekeeping")
       .register(registry);
 }
+
+// Flow Node Instances
+
+@Bean
+public Gauge activityInstanceStart(MeterRegistry registry) {
+  MetricsQuery query = service.createMetricsQuery().name(Metrics.ACTIVTY_INSTANCE_START);
+
+  return Gauge.builder("engine.activity.instance.start", query::sum)
+      .description("The number of flow node instances (activity instances) started (FNI)")
+      .tags("CamundaOOTB","FNIMetric")
+      .register(registry);
+}
+
+@Bean
+public Gauge activityInstanceEnd(MeterRegistry registry) {
+  MetricsQuery query = service.createMetricsQuery().name(Metrics.ACTIVTY_INSTANCE_END);
+
+  return Gauge.builder("engine.activity.instance.start", query::sum)
+      .description("The number of flow node instances (activity instances) ended (FNI)")
+      .tags("CamundaOOTB","FNIMetric")
+      .register(registry);
+}
+
+
   
 
 // General Metrics
-  
+
+
+
+
   
   @Bean
   public Gauge jobExecutionsSuccessful(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_SUCCESSFUL);
 
-    return Gauge.builder("job.successful", query::sum)
+    return Gauge.builder("engine.job.successful", query::sum)
         .description("Job successful")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -113,7 +136,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge jobExecutionsFailed(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_FAILED);
 
-    return Gauge.builder("job.executions.failed", query::sum)
+    return Gauge.builder("engine.job.executions.failed", query::sum)
         .description("Failed job executions")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -133,7 +156,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge jobAcquisitionsAttempted(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_ACQUISITION_ATTEMPT);
 
-    return Gauge.builder("job.acquisitions.attempted", query::sum)
+    return Gauge.builder("engine.job.acquisitions.attempted", query::sum)
         .description("Performed job acquisition cycles")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -143,7 +166,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge jobAcquisitionsSuccessful(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_ACQUIRED_SUCCESS);
 
-    return Gauge.builder("job.acquisitions.successful", query::sum)
+    return Gauge.builder("engine.job.acquisitions.successful", query::sum)
         .description("Successful job acquisitions")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -153,7 +176,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge jobAcquistionsFailed(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_ACQUIRED_FAILURE);
 
-    return Gauge.builder("job.acquisitions.failed", query::sum)
+    return Gauge.builder("engine.job.acquisitions.failed", query::sum)
         .description("Failed job acquisitions")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -163,7 +186,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge jobLocksExclusive(MeterRegistry registry) {
     MetricsQuery query = service.createMetricsQuery().name(Metrics.JOB_LOCKED_EXCLUSIVE);
 
-    return Gauge.builder("job.locks.exclusive", query::sum)
+    return Gauge.builder("engine.job.locks.exclusive", query::sum)
         .description("Exclusive jobs that are immediately locked and executed")
         .tags("CamundaOOTB","TESTCustomMetric")
         .register(registry);
@@ -173,7 +196,7 @@ public Gauge historyCleanupRemovedTasks(MeterRegistry registry) {
   public Gauge dueJobsInDB(MeterRegistry registry) {
     Query jobQuery = service.createJobQuery().executable().messages();
 
-    return Gauge.builder("jobs.due", jobQuery::count)
+    return Gauge.builder("engine.jobs.due", jobQuery::count)
         .description("Jobs from async continuation that are due").register(registry);
   }
 }
